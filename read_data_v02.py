@@ -30,7 +30,7 @@ def insert_data_d_instituicoes(path):
     #Function to rename csv columns, will be call in the READ_CSV function
     def rename_columns(dataframe):
         try:
-            dataframe = dataframe.rename({
+            dataframe = dataframe.rename(columns = {
                     'ï»¿NU_ANO' : 'ANO',
                     'NU_EDICAO' : 'EDICAO',
                     'CO_ETAPA' : 'ETAPA',
@@ -109,7 +109,7 @@ def insert_data_d_instituicoes(path):
         
         #Call custom rename function
         df_temp = rename_columns(df_temp)
-        
+
         #Drop columns
         df_temp = df_temp.drop(columns = ['ANO',
                                         'EDICAO',
@@ -167,8 +167,10 @@ def insert_data_d_instituicoes(path):
             df, df_shape = read_csv(path, file, '|')
 
         df = df.groupby(by=['CODIGO_CAMPUS']).first().reset_index()
-        print(df.head(1))
+        df.to_csv('teste.csv')
 
     return print(f'The process taked {time.process_time()/60} minutes')
 
-insert_data_d_instituicoes('/home/jorge/Documents/Projeto_ENEM/chamada_regular/')
+
+if __name__ == '__main__':
+    insert_data_d_instituicoes('/home/jorge/Documents/analise_enem/chamada_regular/')
